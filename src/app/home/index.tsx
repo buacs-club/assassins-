@@ -1,11 +1,9 @@
 import * as Device from 'expo-device';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HintRow } from '@/components/hint-row';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, Colors, MaxContentWidth, Spacing } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme.web';
 import { Image } from 'expo-image';
@@ -34,12 +32,15 @@ export default function HomeScreen() {
   const scheme = useColorScheme();
   const colors = Colors[scheme === 'dark' ? 'dark' : 'light'];
 
+  const { width } = useWindowDimensions();
+
   return (
     <ThemedView style={styles.container}>
       <LinearGradient
           colors={[colors.accent, colors.background]}
           start={{ x:0, y:0 }}
           end={{ x:0, y:1 }}
+          style={{ flex: 1 }}
         >
         <Image
           source={require("@/assets/images/noise.png")}
@@ -56,24 +57,7 @@ export default function HomeScreen() {
                 Your next target is ....
               </ThemedText>
             </View>
-  
-          <ThemedText type="code" style={styles.code}>
-            get started
-          </ThemedText>
 
-          <ThemedView type="backgroundElement" style={styles.stepContainer}>
-            <HintRow
-              title="Try editing"
-              hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-            />
-            <HintRow title="Dev tools" hint={getDevMenuHint()} />
-            <HintRow
-              title="Fresh start"
-              hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-            />
-          </ThemedView>
-
-          {Platform.OS === 'web' && <WebBadge />}
         </SafeAreaView>
       </LinearGradient>
     </ThemedView>
@@ -83,6 +67,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     justifyContent: 'center',
     flexDirection: 'row',
   },

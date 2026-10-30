@@ -1,0 +1,33 @@
+build:
+  name: Unsigned iPhone IPA
+  steps:
+    - eas/checkout
+    - eas/install_node_modules
+    - eas/prebuild
+    - run:
+        name: Install CocoaPods
+        command: cd ios && pod install
+    - run:
+        name: Build and package unsigned IPA
+        command: |
+          set -euo pipefail
+
+          xcodebuild \
+            -workspace ios/assassins.xcworkspace \
+            -scheme assassins \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/ios \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+          APP_PATH="build/ios/Build/Products/Release-iphoneos/assassins.app"
+          test -d "$APP_PATH"
+          mkdir -p build/ipa/Payload
+          cp -R "$APP_PATH" build/ipa/Payload/
+          (cd build/ipa && zip -qr ../Assassins-unsigned.ipa Payload)
+          test -s build/Assassins-unsigned.ipa
+
+    - eas/find_and_upload_build_artifacts

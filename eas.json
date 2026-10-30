@@ -1,0 +1,31 @@
+{
+  "cli": {
+    "version": ">= 27.1.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true
+    },
+    "unsigned": {
+        "distribution": "internal",
+        "withoutCredentials": true,
+        "ios": {
+            "simulator": false,
+            "scheme": "assassins",
+            "config":"assassins-unsigned-ios.yml",
+            "applicationArchivePath": "build/Assassins-unsigned.ipa"
+        }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

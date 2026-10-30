@@ -21,3 +21,9 @@ export async function login(email: string, password: string) {
         .auth
         .signInWithPassword({ email, password })
 }
+
+export async function logout() {
+    await supabase
+        .auth
+        .signOut()
+}

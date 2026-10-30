@@ -43,6 +43,12 @@ export default function HomeScreen() {
           style={{ flex: 1 }}
         >
         <Image
+          source={require("@/assets/images/noise.jpg")}
+          contentFit="cover"
+          pointerEvents="none"
+          style={styles.texture}
+        />
+        <Image
           source={require("@/assets/images/noise.png")}
           contentFit="cover"
           pointerEvents="none"
@@ -53,7 +59,7 @@ export default function HomeScreen() {
               <ThemedText type="title" style={styles.title}>
                 Assassins
               </ThemedText>
-              <ThemedText type="default" style={styles.title}>
+              <ThemedText type="default" style={{ color: colors.textSecondary }}>
                 Your next target is ....
               </ThemedText>
             </View>

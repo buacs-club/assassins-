@@ -14,7 +14,7 @@
 
       android = pkgs.androidenv.composeAndroidPackages {
         platformVersions = [ "37" ];
-        buildToolsVersions = [ "37.0.0" ];
+        buildToolsVersions = [ "36.0.0" "37.0.0" ];
         ndkVersions = [ "27.1.12297006" ];
         includeNDK = true;
         cmakeVersions = [ "3.22.1" ];
@@ -34,9 +34,9 @@
 
         ANDROID_HOME = sdk;
         ANDROID_SDK_ROOT = sdk;
-        ANDROID_NDK_ROOT = "${sdk}/ndk/27.1.12297006";
+        ANDROID_NDK_ROOT = "${sdk}/ndk-bundle";
         GRADLE_OPTS =
-          "-Dorg.gradle.project.android.aapt2FromMavenOverride=${sdk}/build-tools/37.0.0/aapt2";
+            "-Dorg.gradle.project.android.aapt2FromMavenOverride=${sdk}/build-tools/36.0.0/aapt2";
 
         shellHook = ''
           export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"

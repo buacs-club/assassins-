@@ -15,9 +15,10 @@ export default function AppTabs() {
       labelStyle={{ selected: { color: colors.accent } }}
       >
       <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Target</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/swords.png')}
+          sf = {{ default: "house", selected: "house.fill" }}
+          src = {require("@/assets/images/tabIcons/home.png")}
           renderingMode="template"
         />
       </NativeTabs.Trigger>
@@ -25,7 +26,8 @@ export default function AppTabs() {
       <NativeTabs.Trigger name="leaderboard">
         <NativeTabs.Trigger.Label>Leaderboard</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/leaderboard.png')}
+          sf = {{ default: "trophy", selected: "trophy.fill" }}
+          src = {require("@/assets/images/tabIcons/trophy.png")}
           renderingMode="template"
         />
       </NativeTabs.Trigger>
@@ -33,7 +35,8 @@ export default function AppTabs() {
       <NativeTabs.Trigger name="user">
         <NativeTabs.Trigger.Label>Profile</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/user.png')}
+          sf = {{ default: "person", selected: "person.fill" }}
+          src = {require("@/assets/images/tabIcons/user.png")}
           renderingMode="template"
         />
       </NativeTabs.Trigger>

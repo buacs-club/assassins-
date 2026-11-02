@@ -2,6 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { BottomTabInset, Colors, MaxContentWidth, Spacing } from "@/constants/theme";
 import { login } from "@/lib/supabase";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, TextInput, useColorScheme, View } from "react-native";
@@ -21,17 +22,18 @@ export default function LoginScreen() {
             <SafeAreaView style={styles.safeArea}>
                 <View style={{ width: "75%", alignItems: "center", gap: Spacing.three }}>
                     <ThemedText type="subtitle">
-                        Login
+                        Log in
                     </ThemedText>
                     <TextInput 
                         onChangeText={setEmail} 
                         value={email} 
                         style={{ 
                             backgroundColor: colors.backgroundElement, 
-                            borderRadius: 10.0, 
+                            borderRadius: Spacing.six, 
                             width: "100%", 
-                            padding: Spacing.two,
-                            color: colors.text
+                            padding: Spacing.three,
+                            color: colors.text,
+                            fontSize: 16
                         }} 
                         placeholder="Email" 
                         textContentType="emailAddress" 
@@ -44,11 +46,11 @@ export default function LoginScreen() {
                         value={password} 
                         style={{ 
                             backgroundColor: colors.backgroundElement, 
-                            borderRadius: 10.0, 
+                            borderRadius: Spacing.six, 
                             width: "100%", 
-                            padding: Spacing.two,
-                            color: colors.text
-                            
+                            padding: Spacing.three,
+                            color: colors.text,
+                            fontSize: 16
                         }} 
                         placeholder="Password" 
                         textContentType="password"
@@ -63,7 +65,7 @@ export default function LoginScreen() {
                             width: "100%",
                             alignItems: "center",
                             padding: Spacing.two,
-                            borderRadius: 10.0,
+                            borderRadius: Spacing.six,
                             transitionDuration: "125ms"
                         }]}
 
@@ -76,6 +78,65 @@ export default function LoginScreen() {
                     >
                         <ThemedText type="default" style={{ color: colors.background }}>
                             Login
+                        </ThemedText>
+                    </Pressable>
+                    <ThemedText type="small" style={{ color: colors.textSecondary }}>
+                        or
+                    </ThemedText>
+                    <Pressable
+                        style={({ pressed }) => [{
+                            backgroundColor: pressed ? colors.textSecondary : "transparent",
+                            transform: [{scale: pressed ? 0.95 : 1.0}],
+                            width: "100%",
+                            alignItems: "center",
+                            padding: Spacing.two,
+                            borderRadius: Spacing.six,
+                            transitionDuration: "125ms",
+                            borderColor: colors.textSecondary,
+                            borderWidth: 1,
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            gap: Spacing.one
+                        }]}
+
+                        onPressOut={()=>{
+                            login(email, password)
+                                .then(()=>{
+                                    router.push("/(home)")
+                                })
+                        }}
+                    >   
+                        <Image 
+                            source={require("@/assets/images/google.png")}
+                            style={{ width: 24, height: 24, transform: [{ scale: 1.5 }] }}
+                            contentFit="cover"
+                        />
+                        <ThemedText type="default" style={{ color: colors.text, alignItems: "center" }}>
+                            Continue with Google
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={({ pressed }) => [{
+                            backgroundColor: pressed ? colors.textSecondary : "transparent",
+                            transform: [{scale: pressed ? 0.95 : 1.0}],
+                            width: "100%",
+                            alignItems: "center",
+                            padding: Spacing.two,
+                            borderRadius: Spacing.six,
+                            transitionDuration: "125ms",
+                            borderColor: colors.textSecondary,
+                            borderWidth: 1
+                        }]}
+
+                        onPressOut={()=>{
+                            login(email, password)
+                                .then(()=>{
+                                    router.push("/(home)")
+                                })
+                        }}
+                    >
+                        <ThemedText type="default" style={{ color: colors.text }}>
+                            Continue with Apple
                         </ThemedText>
                     </Pressable>
                 </View>
